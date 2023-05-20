@@ -100,6 +100,8 @@ paths:
         500:
           description: 'Server Error'
 
+
+
 # definitions
 definitions:
   users:
@@ -115,6 +117,6 @@ definitions:
         type: string
         description: user Password
 
-schemes:
- - https
- - http
+# schemes:
+#  - https
+#  - http
