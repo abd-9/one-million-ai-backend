@@ -6,6 +6,10 @@ const LinkSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   imageUrl: {
     type: String,
     required: true,
@@ -18,7 +22,7 @@ const LinkSchema: Schema = new Schema({
   stuats: {
     type: LINK_STATUS,
     required: true,
-    default: LINK_STATUS.PENDING,
+    default: LINK_STATUS.INQUEUE,
   },
   active: {
     type: Boolean,
@@ -52,8 +56,13 @@ const LinkSchema: Schema = new Schema({
   },
   payment: {
     type: SchemaTypes.ObjectId,
-    ref: 'IPayment',
+    ref: 'Payment',
     required: false,
+  },
+  rank: {
+    type: Number,
+    required: true,
+    default: 1,
   },
 });
 

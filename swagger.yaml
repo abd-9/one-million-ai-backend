@@ -1,6 +1,8 @@
 tags:
 - name: users
   description: users API
+- name: link
+  description: links API
 
 paths:
 # [GET] users
@@ -100,6 +102,40 @@ paths:
         500:
           description: 'Server Error'
 
+# [GET] link
+  /links:
+    get:
+      tags:
+      - link
+      summary: Find All links
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+#  [Post] link
+  post:
+      tags:
+      - links
+      summary: create link
+      parameters:
+      - name: body
+        in: body
+        description: link Data
+        required: true
+        schema:
+          $ref: '#/definitions/links'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+
 
 
 # definitions
@@ -116,7 +152,5 @@ definitions:
       password:
         type: string
         description: user Password
+  
 
-# schemes:
-#  - https
-#  - http

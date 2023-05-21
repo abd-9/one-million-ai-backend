@@ -3,6 +3,7 @@ import { IUser } from './users.interface';
 
 export interface ILink {
   _id?: String;
+  name: String;
   url: String;
   imageUrl: String;
   active: Boolean;
@@ -12,9 +13,10 @@ export interface ILink {
   pixels?: Number;
   user?: IUser;
   description?: String;
-  IPayment?: IPayment;
+  payment?: IPayment;
   type: LINK_TYPES;
   status: LINK_STATUS;
+  rank: Number;
 }
 
 export enum LINK_TYPES {
@@ -25,7 +27,8 @@ export enum LINK_TYPES {
 }
 
 export enum LINK_STATUS {
-  PENDING = 1,
-  APPROVED = 2,
-  REJECTED = 3,
+  INQUEUE = 1, // That means he did not pay for the link
+  APPROVED = 2, // Approved by admin, should check from expiration date
+  REJECTED = 3, // Rejected by the admin
+  INREVIEW = 4, // He paid and waiting for the admin approval
 }

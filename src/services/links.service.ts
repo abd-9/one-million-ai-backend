@@ -1,10 +1,10 @@
 import { hash } from 'bcrypt';
 import { Service } from 'typedi';
-import { HttpException } from '@exceptions/httpException';
+import { HttpException, RESPONSE_STATUS } from '@exceptions/httpException';
 import { IUser } from '@interfaces/users.interface';
 import { UserModel } from '@models/users.model';
 import { LinkModel } from '@/models/link.model';
-import { ILink } from '@/interfaces/link.interface';
+import { ILink, LINK_STATUS } from '@/interfaces/link.interface';
 
 @Service()
 export class LinkService {
@@ -20,14 +20,24 @@ export class LinkService {
     return findLink;
   }
 
-  public async createUser(userData: IUser): Promise<IUser> {
-    const findUser: IUser = await UserModel.findOne({ email: userData.email });
-    if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
+  public async createLink(linkData: ILink): Promise<ILink> {
+    const findLink: ILink = await LinkModel.findOne({ url: linkData.url });
+    if (findLink) {
+      if (findLink.status === LINK_STATUS.INREVIEW)
+        throw new HttpException(RESPONSE_STATUS.NotAcceptable, `This URL under ${linkData.name} name is under review.`);
+      if (findLink.status === LINK_STATUS.INQUEUE)
+        throw new HttpException(RESPONSE_STATUS.NotAcceptable, `This URL under ${linkData.name} name is in queue.`);
+      if (findLink.status === LINK_STATUS.REJECTED)
+        throw new HttpException(RESPONSE_STATUS.NotAcceptable, `This URL under ${linkData.name} name has been rejected.`);
+      // if (findLink.status === LINK_STATUS.APPROVED)
+      // should call payment service here to extending the subsicrption
 
-    const hashedPassword = await hash(userData.password, 10);
-    const createUserData: IUser = await UserModel.create({ ...userData, password: hashedPassword });
+      // throw new HttpException(409, `This URL ${linkData.url} already exists`);
+    }
 
-    return createUserData;
+    const createdLink: ILink = await LinkModel.create(linkData);
+
+    return createdLink;
   }
 
   public async updateUser(userId: string, userData: IUser): Promise<IUser> {
