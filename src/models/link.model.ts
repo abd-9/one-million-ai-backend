@@ -1,7 +1,7 @@
 import { model, Schema, Document, SchemaTypes } from 'mongoose';
-import { Tool } from '@interfaces/tool.interface';
+import { LINK_STATUS, LINK_TYPES, ILink as ILink } from '@/interfaces/link.interface';
 
-const ToolSchema: Schema = new Schema({
+const LinkSchema: Schema = new Schema({
   url: {
     type: String,
     required: true,
@@ -9,6 +9,16 @@ const ToolSchema: Schema = new Schema({
   imageUrl: {
     type: String,
     required: true,
+  },
+  type: {
+    type: LINK_TYPES,
+    required: true,
+    default: LINK_TYPES.TOOL,
+  },
+  stuats: {
+    type: LINK_STATUS,
+    required: true,
+    default: LINK_STATUS.PENDING,
   },
   active: {
     type: Boolean,
@@ -42,9 +52,9 @@ const ToolSchema: Schema = new Schema({
   },
   payment: {
     type: SchemaTypes.ObjectId,
-    ref: 'Payment',
+    ref: 'IPayment',
     required: false,
   },
 });
 
-export const ToolModel = model<Tool & Document>('Tool', ToolSchema);
+export const LinkModel = model<ILink & Document>('Link', LinkSchema);

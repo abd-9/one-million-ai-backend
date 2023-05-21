@@ -40,7 +40,7 @@ describe('Testing Users', () => {
   });
 
   describe('[GET] /users/:id', () => {
-    it('response findOne User', async () => {
+    it('response findOne  User', async () => {
       const userId = 'qpwoeiruty';
 
       const usersRoute = new UserRoute();

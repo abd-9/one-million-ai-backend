@@ -60,7 +60,7 @@ describe('Testing Auth', () => {
 
   // describe('[POST] /logout', () => {
   //   it('logout Set-Cookie Authorization=; Max-age=0', async () => {
-  //     const userData: User = {
+  //     const userData: IUser = {
   //       _id: '60706478aad6c9ad19a31c84',
   //       email: 'test@email.com',
   //       password: await bcrypt.hash('q1w2e3r4!', 10),

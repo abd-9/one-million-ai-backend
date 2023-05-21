@@ -1,6 +1,6 @@
 import { Subscriber } from './users.interface';
 
-export interface Payment {
+export interface IPayment {
   _id?: String;
   active: Boolean;
   subscriber?: Subscriber;

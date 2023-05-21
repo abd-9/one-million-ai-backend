@@ -3,19 +3,21 @@ import { Service } from 'typedi';
 import { HttpException } from '@exceptions/httpException';
 import { IUser } from '@interfaces/users.interface';
 import { UserModel } from '@models/users.model';
+import { LinkModel } from '@/models/link.model';
+import { ILink } from '@/interfaces/link.interface';
 
 @Service()
-export class UserService {
-  public async findAllUser(): Promise<IUser[]> {
-    const users: IUser[] = await UserModel.find();
-    return users;
+export class LinkService {
+  public async findALlLinks(): Promise<ILink[]> {
+    const links: ILink[] = await LinkModel.find();
+    return links;
   }
 
-  public async findUserById(userId: string): Promise<IUser> {
-    const findUser: IUser = await UserModel.findOne({ _id: userId });
-    if (!findUser) throw new HttpException(409, "IUser doesn't exist");
+  public async findLinkById(linkId: string): Promise<ILink> {
+    const findLink: ILink = await LinkModel.findOne({ _id: linkId });
+    if (!findLink) throw new HttpException(409, "ILink doesn't exist");
 
-    return findUser;
+    return findLink;
   }
 
   public async createUser(userData: IUser): Promise<IUser> {

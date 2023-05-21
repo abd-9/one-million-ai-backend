@@ -1,5 +1,5 @@
 import { model, Schema, Document, SchemaTypes } from 'mongoose';
-import { Payment } from '@/interfaces/payment.interface';
+import { IPayment } from '@/interfaces/payment.interface';
 
 const PaymentSchema: Schema = new Schema({
   active: {
@@ -28,4 +28,4 @@ const PaymentSchema: Schema = new Schema({
   },
 });
 
-export const PaymentModel = model<Payment & Document>('Payment', PaymentSchema);
+export const PaymentModel = model<IPayment & Document>('Payment', PaymentSchema);
