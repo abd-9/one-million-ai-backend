@@ -15,11 +15,11 @@ const PaymentSchema: Schema = new Schema({
     requierd: false,
   },
 
-  experiationTime: {
-    type: Date,
-    required: false,
-    // add defualt value after 3 monthes
-  },
+  // createdDate: {
+  //   type: Date,
+  //   required: false,
+  //   // add defualt value after 3 monthes
+  // },
 
   subscriber: {
     type: SchemaTypes.ObjectId,
