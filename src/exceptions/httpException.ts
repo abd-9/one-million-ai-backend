@@ -20,6 +20,7 @@ export enum RESPONSE_STATUS {
   Forbidden = 403,
   NotFound = 404,
   MethodNotAllowed = 405,
+  DoesNotExist = 409,
   PayloadTooLarge = 413,
   UnsupportedMediaType = 415,
   TooManyRequests = 429,

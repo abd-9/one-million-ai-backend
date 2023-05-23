@@ -15,13 +15,15 @@ const LinkSchema: Schema = new Schema({
     required: true,
   },
   type: {
-    type: LINK_TYPES,
+    type: String,
+    enum: [LINK_TYPES.BLOG, LINK_TYPES.TOOL, LINK_TYPES.COURSE, LINK_TYPES.PLUGIN],
     required: true,
     default: LINK_TYPES.TOOL,
   },
-  stuats: {
-    type: LINK_STATUS,
+  status: {
     required: true,
+    type: String,
+    enum: Object.values(LINK_TYPES),
     default: LINK_STATUS.INQUEUE,
   },
   active: {

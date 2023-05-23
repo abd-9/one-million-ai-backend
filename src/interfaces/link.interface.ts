@@ -20,15 +20,15 @@ export interface ILink {
 }
 
 export enum LINK_TYPES {
-  BLOG = 1,
-  TOOL = 2,
-  COURSE = 3,
-  PLUGIN = 4,
+  BLOG = '1',
+  TOOL = '2',
+  COURSE = '3',
+  PLUGIN = '4',
 }
 
 export enum LINK_STATUS {
-  INQUEUE = 1, // That means he did not pay for the link
-  APPROVED = 2, // Approved by admin, should check from expiration date
-  REJECTED = 3, // Rejected by the admin
-  INREVIEW = 4, // He paid and waiting for the admin approval
+  INQUEUE = '1', // That means he did not pay for the link
+  APPROVED = '2', // Approved by admin, should check from expiration date
+  REJECTED = '3', // Rejected by the admin
+  INREVIEW = '4', // He paid and waiting for the admin approval
 }

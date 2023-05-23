@@ -7,15 +7,15 @@ import { RESPONSE_STATUS } from '@/exceptions/httpException';
 export class LinkController {
   public link = Container.get(LinkService);
 
-  // public getUsers = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const findAllUsersData: IUser[] = await this.user.findAllUser();
+  public getLinks = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const findAllUsersData: ILink[] = await this.link.findALlLinks();
 
-  //     res.status(200).json({ data: findAllUsersData, message: 'findAll' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
   // public getUserById = async (req: Request, res: Response, next: NextFunction) => {
   //   try {
@@ -40,26 +40,26 @@ export class LinkController {
     }
   };
 
-  // public updateUser = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const userId: string = req.params.id;
-  //     const userData: IUser = req.body;
-  //     const updateUserData: IUser = await this.user.updateUser(userId, userData);
+  public updateLink = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const linkId: string = req.params.id;
+      const userData: ILink = req.body;
+      const updateUserData: ILink = await this.link.updateLink(linkId, userData);
 
-  //     res.status(200).json({ data: updateUserData, message: 'updated' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(RESPONSE_STATUS.OK).json({ data: updateUserData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  // public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
-  //   try {
-  //     const userId: string = req.params.id;
-  //     const deleteUserData: IUser = await this.user.deleteUser(userId);
+  public deleteLink = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const linkId: string = req.params.id;
+      const deleteLinkData: ILink = await this.link.deleteLink(linkId);
 
-  //     res.status(200).json({ data: deleteUserData, message: 'deleted' });
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+      res.status(RESPONSE_STATUS.OK).json({ data: deleteLinkData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
