@@ -3039,11 +3039,6 @@ data-uri-to-buffer@3:
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz#594b8973938c5bc2c33046535785341abc4f3636"
   integrity sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==
 
-database@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/database/-/database-0.0.2.tgz#8533a4203ea02b37cde5becbb90d0b34b5a2357a"
-  integrity sha512-lrqvU32firrb2TBjn4Iv9V1Mh90rqUtyyLAvdSqdGP2w7IrNy+oI5IqGNowHq8o+/WVnQtKNfNIpLYd6uWZLHw==
-
 databases@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/databases/-/databases-0.0.1.tgz#86b4f96cc3adee64ed11b2d03f3fa67a96debc67"
@@ -5308,7 +5303,7 @@ module-details-from-path@^1.0.3:
   resolved "https://registry.yarnpkg.com/module-details-from-path/-/module-details-from-path-1.0.3.tgz#114c949673e2a8a35e9d35788527aa37b679da2b"
   integrity sha512-ySViT69/76t8VhE1xXHK6Ch4NcDd26gx0MzKXLO+F7NOtnqH68d9zF94nT8ZWSxXh8ELOERsnJO/sWt1xZYw5A==
 
-moment@^2.29.1:
+moment@^2.29.1, moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==

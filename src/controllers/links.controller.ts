@@ -10,7 +10,6 @@ export class LinkController {
   public getLinks = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const findAllUsersData: ILink[] = await this.link.findALlLinks();
-
       res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
     } catch (error) {
       next(error);

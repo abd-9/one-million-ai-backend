@@ -4,7 +4,7 @@ export interface IPayment {
   _id?: String;
   active: Boolean;
   subscriber?: Subscriber;
-  createdDate: Date;
+  paymentDate: Date | String;
   amount: Number;
   transactionId: String;
 }

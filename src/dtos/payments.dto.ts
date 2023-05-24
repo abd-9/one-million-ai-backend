@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsString, IsBoolean, IsOptional, IsDate, IsNumber } from 'class-validator';
+import { IsString, IsBoolean, IsOptional, IsNumber } from 'class-validator';
 
 export class CreatePaymentDTO {
   @IsBoolean()

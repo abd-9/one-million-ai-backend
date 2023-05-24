@@ -3,6 +3,7 @@ import { Container } from 'typedi';
 import { IPayment } from '@/interfaces/payment.interface';
 import { PaymentService } from '@/services/payments.service';
 import { RESPONSE_STATUS } from '@/exceptions/httpException';
+import { DateHelper } from '@/utils/dateHelper';
 
 export class PaymentController {
   public payment = Container.get(PaymentService);
@@ -32,9 +33,10 @@ export class PaymentController {
   public updatePayment = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const paymentId: string = req.params.id;
-      const userData: IPayment = req.body;
-      const updateUserData: IPayment = await this.payment.updatePayment(paymentId, userData);
+      const paymentData: IPayment = req.body;
+      const updateUserData: IPayment = await this.payment.updatePayment(paymentId, paymentData);
 
+      paymentData.paymentDate = DateHelper.IsoFormat();
       res.status(RESPONSE_STATUS.OK).json({ data: updateUserData, message: 'updated' });
     } catch (error) {
       next(error);
