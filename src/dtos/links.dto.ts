@@ -1,6 +1,6 @@
 import { LINK_TYPES } from '@/interfaces/link.interface';
 import { Expose } from 'class-transformer';
-import { IsString, IsOptional, IsNumber, IsEnum } from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsEnum, IsArray } from 'class-validator';
 
 export class CreateLinkDTO {
   @IsString()
@@ -18,6 +18,10 @@ export class CreateLinkDTO {
   @IsOptional()
   @IsNumber()
   visitsCount: number;
+
+  @IsOptional()
+  @IsArray()
+  tags: string[];
 
   @IsOptional()
   @IsNumber()
@@ -52,4 +56,20 @@ export class CreateLinkDTO {
 
   // @IsNumber()
   // rank: number;
+}
+export class LinkFilterDTO {
+  @IsString()
+  @IsOptional()
+  name: string;
+
+  @IsOptional()
+  @IsArray()
+  tags: string[];
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsEnum(LINK_TYPES)
+  type: LINK_TYPES;
 }

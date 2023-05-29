@@ -2,6 +2,8 @@ import { Service } from 'typedi';
 import { HttpException, RESPONSE_STATUS } from '@exceptions/httpException';
 import { LinkModel } from '@/models/link.model';
 import { ILink, LINK_STATUS } from '@/interfaces/link.interface';
+import { LinkFilterDTO } from '@/dtos/links.dto';
+import { PaginationDTO } from '@/dtos/pagination.dto';
 
 @Service()
 export class LinkService {
@@ -15,6 +17,15 @@ export class LinkService {
     if (!findLink) throw new HttpException(409, "ILink doesn't exist");
 
     return findLink;
+  }
+  public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<ILink[]> {
+    const query = {
+      $or: [{ name: { $regex: filter.name, $options: 'i' } }, { tags: { $in: filter.tags } }, { description: filter.description }],
+    };
+    const linksList: ILink[] = await LinkModel.find(query).limit(filter.limit);
+    if (!(linksList.length > 0)) throw new HttpException(RESPONSE_STATUS.NotFound, 'No result  found');
+
+    return linksList;
   }
 
   public async createLink(linkData: ILink): Promise<ILink> {

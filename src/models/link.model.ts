@@ -51,6 +51,10 @@ const LinkSchema: Schema = new Schema({
     type: String,
     required: false,
   },
+  tags: {
+    type: [String],
+    required: false,
+  },
   user: {
     type: SchemaTypes.ObjectId,
     ref: 'User',

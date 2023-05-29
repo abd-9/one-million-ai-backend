@@ -17,6 +17,7 @@ export interface ILink {
   type: LINK_TYPES;
   status: LINK_STATUS;
   rank: Number;
+  tags: String[];
 }
 
 export enum LINK_TYPES {

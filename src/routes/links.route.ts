@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { LinkController } from '@/controllers/links.controller';
-import { CreateLinkDTO } from '@/dtos/links.dto';
+import { CreateLinkDTO, LinkFilterDTO } from '@/dtos/links.dto';
 
 export class LinkRoute implements Routes {
   public path = '/links';
@@ -18,5 +18,6 @@ export class LinkRoute implements Routes {
     this.router.post(`${this.path}`, ValidationMiddleware(CreateLinkDTO), this.link.createLink);
     this.router.put(`${this.path}/:id`, ValidationMiddleware(CreateLinkDTO), this.link.updateLink);
     this.router.delete(`${this.path}/:id`, this.link.deleteLink);
+    this.router.post(`${this.path}/filter`, ValidationMiddleware(LinkFilterDTO), this.link.filterBy);
   }
 }

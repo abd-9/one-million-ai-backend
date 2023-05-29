@@ -3,6 +3,8 @@ import { Container } from 'typedi';
 import { ILink, LINK_STATUS } from '@/interfaces/link.interface';
 import { LinkService } from '@/services/links.service';
 import { RESPONSE_STATUS } from '@/exceptions/httpException';
+import { LinkFilterDTO } from '@/dtos/links.dto';
+import { PaginationDTO } from '@/dtos/pagination.dto';
 
 export class LinkController {
   public link = Container.get(LinkService);
@@ -10,6 +12,16 @@ export class LinkController {
   public getLinks = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const findAllUsersData: ILink[] = await this.link.findALlLinks();
+      res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public filterBy = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const body: LinkFilterDTO & PaginationDTO = req.body;
+
+      const findAllUsersData: ILink[] = await this.link.findALlLinksByFilter(body);
       res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
     } catch (error) {
       next(error);
