@@ -5,14 +5,15 @@ import { LinkService } from '@/services/links.service';
 import { RESPONSE_STATUS } from '@/exceptions/httpException';
 import { LinkFilterDTO } from '@/dtos/links.dto';
 import { PaginationDTO } from '@/dtos/pagination.dto';
-
 export class LinkController {
   public link = Container.get(LinkService);
 
   public getLinks = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllUsersData: ILink[] = await this.link.findALlLinks();
-      res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
+      const body: LinkFilterDTO & PaginationDTO = req.body;
+      body.limit = body.limit < 300 ? body.limit : 100;
+      const findAllLinksData: { list: ILink[] } & PaginationDTO = await this.link.findALlLinks(body);
+      res.status(RESPONSE_STATUS.OK).json({ data: findAllLinksData, message: 'findAll' });
     } catch (error) {
       next(error);
     }
@@ -20,9 +21,9 @@ export class LinkController {
   public filterBy = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const body: LinkFilterDTO & PaginationDTO = req.body;
-
-      const findAllUsersData: ILink[] = await this.link.findALlLinksByFilter(body);
-      res.status(RESPONSE_STATUS.OK).json({ data: findAllUsersData, message: 'findAll' });
+      // const pagination: PaginationDTO = extractPaginationDTO(req.body);
+      const findAllLinksData: { list: ILink[] } & PaginationDTO = await this.link.findALlLinksByFilter(body);
+      res.status(RESPONSE_STATUS.OK).json({ data: findAllLinksData, message: 'findAll' });
     } catch (error) {
       next(error);
     }

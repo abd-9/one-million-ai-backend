@@ -14,7 +14,7 @@ export class LinkRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.link.getLinks);
+    this.router.post(`${this.path}`, this.link.getLinks);
     this.router.post(`${this.path}`, ValidationMiddleware(CreateLinkDTO), this.link.createLink);
     this.router.put(`${this.path}/:id`, ValidationMiddleware(CreateLinkDTO), this.link.updateLink);
     this.router.delete(`${this.path}/:id`, this.link.deleteLink);

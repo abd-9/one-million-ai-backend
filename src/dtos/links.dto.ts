@@ -70,6 +70,7 @@ export class LinkFilterDTO {
   @IsString()
   description?: string;
 
+  @IsOptional()
   @IsEnum(LINK_TYPES)
   type: LINK_TYPES;
 }

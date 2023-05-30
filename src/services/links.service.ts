@@ -7,25 +7,38 @@ import { PaginationDTO } from '@/dtos/pagination.dto';
 
 @Service()
 export class LinkService {
-  public async findALlLinks(): Promise<ILink[]> {
-    const links: ILink[] = await LinkModel.find();
-    return links;
-  }
+  public async findALlLinks(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
+    const linksList: ILink[] = await LinkModel.find().limit(filter.limit);
+    const totalNumber: number = await LinkModel.countDocuments();
+    const pagination: PaginationDTO = new PaginationDTO();
+    pagination.total = totalNumber;
+    pagination.limit = filter.limit;
+    pagination.page = filter.page;
 
+    if (!(linksList.length > 0)) throw new HttpException(RESPONSE_STATUS.NotFound, 'No result  found');
+
+    return { list: linksList, ...pagination };
+  }
   public async findLinkById(linkId: string): Promise<ILink> {
     const findLink: ILink = await LinkModel.findOne({ _id: linkId });
     if (!findLink) throw new HttpException(409, "ILink doesn't exist");
 
     return findLink;
   }
-  public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<ILink[]> {
+  public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
     const query = {
       $or: [{ name: { $regex: filter.name, $options: 'i' } }, { tags: { $in: filter.tags } }, { description: filter.description }],
     };
     const linksList: ILink[] = await LinkModel.find(query).limit(filter.limit);
+    const totalNumber: number = await LinkModel.countDocuments(query);
+    const pagination: PaginationDTO = new PaginationDTO();
+    pagination.total = totalNumber;
+    pagination.limit = filter.limit;
+    pagination.page = filter.page;
+
     if (!(linksList.length > 0)) throw new HttpException(RESPONSE_STATUS.NotFound, 'No result  found');
 
-    return linksList;
+    return { list: linksList, ...pagination };
   }
 
   public async createLink(linkData: ILink): Promise<ILink> {
