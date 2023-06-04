@@ -4,11 +4,13 @@ import { LinkModel } from '@/models/link.model';
 import { ILink, LINK_STATUS } from '@/interfaces/link.interface';
 import { LinkFilterDTO } from '@/dtos/links.dto';
 import { PaginationDTO } from '@/dtos/pagination.dto';
+import { ICustomer } from '@/interfaces/users.interface';
+import { CustomerModel } from '@/models/users.model';
 
 @Service()
 export class LinkService {
   public async findALlLinks(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
-    const linksList: ILink[] = await LinkModel.find().limit(filter.limit);
+    const linksList: ILink[] = await LinkModel.find({ status: { $set: LINK_STATUS.APPROVED } }).limit(filter.limit);
     const totalNumber: number = await LinkModel.countDocuments();
     const pagination: PaginationDTO = new PaginationDTO();
     pagination.total = totalNumber;
@@ -27,7 +29,12 @@ export class LinkService {
   }
   public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
     const query = {
-      $or: [{ name: { $regex: filter.name, $options: 'i' } }, { tags: { $in: filter.tags } }, { description: filter.description }],
+      $or: [
+        { status: { $set: LINK_STATUS.APPROVED } },
+        { name: { $regex: filter.name, $options: 'i' } },
+        { tags: { $in: filter.tags } },
+        { description: filter.description },
+      ],
     };
     const linksList: ILink[] = await LinkModel.find(query).limit(filter.limit);
     const totalNumber: number = await LinkModel.countDocuments(query);
@@ -55,10 +62,22 @@ export class LinkService {
 
       // throw new HttpException(409, `This URL ${linkData.url} already exists`);
     }
-
+    const formatedLink: ILink = linkData;
+    formatedLink.customer = linkData.owner;
     const createdLink: ILink = await LinkModel.create(linkData);
 
     return createdLink;
+  }
+  public async findOrCreateCustomer(customerData: ICustomer): Promise<ICustomer> {
+    const findCustomer: ICustomer = await CustomerModel.findOne({ email: customerData.email });
+
+    if (findCustomer) {
+      return findCustomer;
+    }
+
+    const createdCustomer: ICustomer = await CustomerModel.create(customerData);
+
+    return createdCustomer;
   }
 
   public async updateLink(linkId: string, linkData: ILink): Promise<ILink> {

@@ -1,5 +1,5 @@
 import { IPayment } from './payment.interface';
-import { IUser } from './users.interface';
+import { ICustomer, IUser } from './users.interface';
 
 export interface ILink {
   _id?: String;
@@ -18,6 +18,8 @@ export interface ILink {
   status: LINK_STATUS;
   rank: Number;
   tags: String[];
+  owner?: ICustomer;
+  customer?: ICustomer;
 }
 
 export enum LINK_TYPES {

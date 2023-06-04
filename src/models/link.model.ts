@@ -58,7 +58,12 @@ const LinkSchema: Schema = new Schema({
   user: {
     type: SchemaTypes.ObjectId,
     ref: 'User',
-    required: true,
+    required: false,
+  },
+  customer: {
+    type: SchemaTypes.ObjectId,
+    ref: 'Customer',
+    required: false,
   },
   payment: {
     type: SchemaTypes.ObjectId,

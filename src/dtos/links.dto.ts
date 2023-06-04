@@ -1,6 +1,7 @@
 import { LINK_TYPES } from '@/interfaces/link.interface';
+import { ICustomer } from '@/interfaces/users.interface';
 import { Expose } from 'class-transformer';
-import { IsString, IsOptional, IsNumber, IsEnum, IsArray } from 'class-validator';
+import { IsString, IsOptional, IsNumber, IsEnum, IsArray, IsEmail, Length } from 'class-validator';
 
 export class CreateLinkDTO {
   @IsString()
@@ -40,6 +41,8 @@ export class CreateLinkDTO {
   @IsString()
   user: string;
 
+  owner: CreateCustomerDto;
+
   @IsOptional()
   @IsString()
   description?: string;
@@ -50,12 +53,6 @@ export class CreateLinkDTO {
 
   @IsEnum(LINK_TYPES)
   type: LINK_TYPES;
-
-  // @IsEnum(LINK_STATUS)
-  // status: LINK_STATUS;
-
-  // @IsNumber()
-  // rank: number;
 }
 export class LinkFilterDTO {
   @IsString()
@@ -73,4 +70,38 @@ export class LinkFilterDTO {
   @IsOptional()
   @IsEnum(LINK_TYPES)
   type: LINK_TYPES;
+}
+
+export class CreateCustomerDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @Length(1, 50)
+  firstName: string;
+
+  @IsOptional()
+  @IsString()
+  @Length(1, 50)
+  lastName?: string;
+
+  @IsOptional()
+  @IsString()
+  country?: string;
+
+  @IsOptional()
+  @IsString()
+  streetAddress?: string;
+
+  @IsOptional()
+  @IsString()
+  city?: string;
+
+  @IsOptional()
+  @IsString()
+  state?: string;
+
+  @IsOptional()
+  @IsString()
+  postalCode?: string;
 }

@@ -5,8 +5,11 @@ import { LinkService } from '@/services/links.service';
 import { RESPONSE_STATUS } from '@/exceptions/httpException';
 import { LinkFilterDTO } from '@/dtos/links.dto';
 import { PaginationDTO } from '@/dtos/pagination.dto';
+import { ICustomer } from '@/interfaces/users.interface';
+import { UserService } from '@/services/users.service';
 export class LinkController {
   public link = Container.get(LinkService);
+  public user = Container.get(UserService);
 
   public getLinks = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -42,8 +45,11 @@ export class LinkController {
 
   public createLink = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const linkData: ILink = req.body;
+      const linkData: ILink & { owner: ICustomer | string } = req.body;
       linkData.status = LINK_STATUS.INQUEUE;
+
+      const createCustomerData: ICustomer = await this.link.findOrCreateCustomer(linkData.owner);
+      linkData.owner = createCustomerData;
       const createLinkData: ILink = await this.link.createLink(linkData);
 
       res.status(RESPONSE_STATUS.OK).json({ data: createLinkData, message: 'created' });
