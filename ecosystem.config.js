@@ -8,7 +8,7 @@ module.exports = {
   apps: [
     {
       name: 'prod', // pm2 start App name
-      script: 'function/index.js',
+      script: 'functions/index.js',
       exec_mode: 'cluster', // 'cluster' or 'fork'
       instance_var: 'INSTANCE_ID', // instance variable
       instances: 2, // pm2 instance count

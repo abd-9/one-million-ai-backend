@@ -4,11 +4,9 @@ import { UserRoute } from '@routes/users.route';
 import { ValidateEnv } from '@utils/validateEnv';
 import { LinkRoute } from '@routes/links.route';
 import { PaymentRoute } from '@routes/payments.route';
-import * as functions from 'firebase-functions';
 
 ValidateEnv();
 
 const app = new App([new UserRoute(), new AuthRoute(), new LinkRoute(), new PaymentRoute()]);
 
 app.listen();
-exports.api = functions.https.onRequest(app.getServer());

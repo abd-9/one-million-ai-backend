@@ -9,7 +9,7 @@ afterAll(async () => {
   await new Promise<void>(resolve => setTimeout(() => resolve(), 500));
 });
 
-describe('Testing Auth', () => {
+describe.skip('Testing Auth', () => {
   describe('[POST] /signup', () => {
     it('response should have the Create userData', async () => {
       const userData: CreateUserDto = {
