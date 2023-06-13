@@ -39,7 +39,7 @@ jobs:
           name: node-app
 
       - name: Install dependencies
-        run: npm install 
+        run: npm install --network-timeout=1000000
 
       - name: Cache dependencies
         uses: actions/cache@v2
