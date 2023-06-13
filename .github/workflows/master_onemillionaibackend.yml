@@ -24,9 +24,6 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Build and test
         run: npm run build --if-present
 
@@ -35,6 +32,9 @@ jobs:
         with:
           name: node-app
           path: .
+
+      - name: Install dependencies
+        run: npm ci
 
   deploy:
     runs-on: ubuntu-latest
