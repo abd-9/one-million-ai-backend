@@ -56,5 +56,4 @@ jobs:
           app-name: 'onemillionaibackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C05C5CF16EC94B84AE8B264E1C8C6F41 }}
-          exclude: node_modules
           package: .
