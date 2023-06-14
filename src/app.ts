@@ -49,8 +49,13 @@ export class App {
     if (this.env !== 'production') {
       set('debug', true);
     }
-
-    await connect(dbConnection.url, dbConnection.options);
+    const ip = require('ip');
+    console.log('server ip: ' + ip.address());
+    try {
+      await connect(dbConnection.url);
+    } catch (error) {
+      logger.error(error);
+    }
   }
 
   private initializeMiddlewares() {
