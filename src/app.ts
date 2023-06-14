@@ -49,6 +49,8 @@ export class App {
     if (this.env !== 'production') {
       set('debug', true);
     }
+    set('debug', true);
+
     const ip = require('ip');
     console.log('server ip: ' + ip.address());
     try {
