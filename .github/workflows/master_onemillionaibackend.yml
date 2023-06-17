@@ -16,7 +16,8 @@ jobs:
     steps:
       - name: Remove artifacts
         uses: c-hive/gha-remove-artifacts@v1.2.0
-
+        with:
+          age: '1 day'
       - uses: actions/checkout@v2
 
       - name: Set up Node.js version
