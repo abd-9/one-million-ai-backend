@@ -13,26 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Delete old artifacts
-        run: |
-          OLD_ARTIFACTS=$(curl -sS --request GET \
-            --url "https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" \
-            --header "Authorization: Bearer ${{ secrets.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 }}" \
-            --header "Accept: application/vnd.github.v3+json" \
-            | jq -r '.artifacts[].id')
-
-          for ARTIFACT_ID in $OLD_ARTIFACTS; do
-            curl --request DELETE \
-              --url "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/${ARTIFACT_ID}" \
-              --header "Authorization: Bearer ${{ secrets.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 }}" \
-              --header "Accept: application/vnd.github.v3+json"
-          done
-
       - name: Set up Node.js version
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
 
+    
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
