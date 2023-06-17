@@ -7,17 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-     
-
   build:
-  
     runs-on: ubuntu-latest
 
     steps:
-      - name: Remove artifacts
-        uses: c-hive/gha-remove-artifacts@v1.2.0
-        with:
-          age: '1 day'
       - uses: actions/checkout@v2
 
       - name: Set up Node.js version
@@ -62,5 +55,5 @@ jobs:
         with:
           app-name: 'onemillionaibackend'
           slot-name: 'Production'
-          publish-profile: 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
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C05C5CF16EC94B84AE8B264E1C8C6F41 }}
           package: .
