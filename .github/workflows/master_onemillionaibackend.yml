@@ -31,7 +31,7 @@ jobs:
               });
             }
         env:
-          GITHUB_TOKEN: ${{ secrets.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 }}
+          GITHUB_TOKEN: ${{ secrets.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 }}
 
       - name: Set up Node.js version
         uses: actions/setup-node@v2
