@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'onemillionaibackend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.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 }}
+          publish-profile: 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
           package: .
