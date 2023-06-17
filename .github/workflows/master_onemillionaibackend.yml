@@ -16,7 +16,6 @@ jobs:
       - name: Delete old artifacts
         uses: actions/github-script@v4
         with:
-          github-token: ${{ secrets.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 }}
           script: |
             const artifacts = await github.actions.listWorkflowRunArtifacts({
               owner: context.repo.owner,
@@ -31,6 +30,8 @@ jobs:
                 artifact_id: artifact.id
               });
             }
+        env:
+          GITHUB_TOKEN: ${{ secrets.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 }}
 
       - name: Set up Node.js version
         uses: actions/setup-node@v2
