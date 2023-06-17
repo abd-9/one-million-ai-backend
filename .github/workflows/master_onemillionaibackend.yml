@@ -7,10 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  removeArtifacts:
+     
+
   build:
+  
     runs-on: ubuntu-latest
 
     steps:
+      - name: Remove artifacts
+        uses: c-hive/gha-remove-artifacts@v1.2.0
+
       - uses: actions/checkout@v2
 
       - name: Set up Node.js version
