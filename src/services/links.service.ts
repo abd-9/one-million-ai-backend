@@ -10,8 +10,15 @@ import { CustomerModel } from '@/models/users.model';
 @Service()
 export class LinkService {
   public async findALlLinks(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
-    const linksList: ILink[] = await LinkModel.find().limit(filter.limit);
-    const totalNumber: number = await LinkModel.countDocuments();
+    // LinkModel.updateMany({}, { $set: { status: '2' } }, { limit: 100 }, (err, result) => {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     console.log(`${result.nModified} documents updated.`);
+    //   }
+    // });
+    const linksList: ILink[] = await LinkModel.find({ status: LINK_STATUS.APPROVED }).limit(filter.limit);
+    const totalNumber: number = await LinkModel.countDocuments({ status: LINK_STATUS.APPROVED });
     const pagination: PaginationDTO = new PaginationDTO();
     pagination.total = totalNumber;
     pagination.limit = filter.limit;
@@ -30,7 +37,7 @@ export class LinkService {
   public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
     const query = {
       $or: [
-        // { status: { $set: LINK_STATUS.APPROVED } },
+        { status: LINK_STATUS.APPROVED },
         { name: { $regex: filter.name, $options: 'i' } },
         { tags: { $in: filter.tags } },
         { description: filter.description },
