@@ -13,12 +13,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Delete old artifacts
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.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 }}
+          script: |
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId
+            });
+
+            for (const artifact of artifacts.data.artifacts) {
+              await github.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id
+              });
+            }
+
       - name: Set up Node.js version
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
 
-    
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
