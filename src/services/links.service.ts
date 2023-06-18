@@ -36,11 +36,11 @@ export class LinkService {
   }
   public async findALlLinksByFilter(filter: LinkFilterDTO & PaginationDTO): Promise<{ list: ILink[] } & PaginationDTO> {
     const query = {
-      $or: [
+      $and: [
         { status: LINK_STATUS.APPROVED },
         { name: { $regex: filter.name, $options: 'i' } },
-        { tags: { $in: filter.tags } },
-        { description: filter.description },
+        // { tags: { $in: filter.tags } },
+        // { description: filter.description },
       ],
     };
     const linksList: ILink[] = await LinkModel.find(query).limit(filter.limit);

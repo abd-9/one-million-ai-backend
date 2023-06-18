@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { Routes } from '@interfaces/routes.interface';
 import { ValidationMiddleware } from '@middlewares/validation.middleware';
 import { LinkController } from '@/controllers/links.controller';
-import { CreateCustomerDto, CreateLinkDTO, LinkFilterDTO } from '@/dtos/links.dto';
+import { CreateLinkDTO, LinkFilterDTO } from '@/dtos/links.dto';
 
 export class LinkRoute implements Routes {
   public path = '/links';

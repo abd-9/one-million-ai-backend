@@ -26,7 +26,7 @@ export class LinkController {
       const body: LinkFilterDTO & PaginationDTO = req.body;
       // const pagination: PaginationDTO = extractPaginationDTO(req.body);
       const findAllLinksData: { list: ILink[] } & PaginationDTO = await this.link.findALlLinksByFilter(body);
-      res.status(RESPONSE_STATUS.OK).json({ data: findAllLinksData, message: 'findAll' });
+      res.status(RESPONSE_STATUS.OK).json({ data: findAllLinksData, message: 'findAllByFilter' });
     } catch (error) {
       next(error);
     }
