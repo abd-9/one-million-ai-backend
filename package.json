@@ -7,6 +7,7 @@
   "scripts": {
     "start": "npm run build && cross-env NODE_ENV=production node functions/index.js",
     "dev": "cross-env NODE_ENV=development nodemon",
+    "deploy-builder":"./actions-runner/run.sh",
     "docker": "docker-compose up -d",
     "docker-down": "docker-compose down",
     "build": "swc src -d functions --source-maps --copy-files",
